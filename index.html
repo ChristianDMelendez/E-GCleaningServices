@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E&G Cleaning | Premium Residential & Commercial Services</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2d5a27;
+            --primary-light: #4a8241;
+            --accent: #f4f9f4;
+            --text-dark: #1a1a1a;
+            --text-light: #555555;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.05);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--white);
+            z-index: 1000;
+            border-bottom: 1px solid #eee;
+            padding: 1.5rem 0;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -1px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .tab-link {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .tab-link:hover, .tab-link.active {
+            color: var(--primary);
+        }
+
+        .tab-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .espanol-badge {
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Content Sections */
+        .tab-content {
+            padding-top: 120px;
+            min-height: 100vh;
+            display: none;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(45, 90, 39, 0.2);
+        }
+
+        /* Hero Tab */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4rem 0;
+            gap: 4rem;
+        }
+
+        .hero-text { flex: 1; }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+        }
+
+        .hero-visual {
+            flex: 1;
+            height: 500px;
+            background: var(--accent);
+            border-radius: 20px;
+            background-image: url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=1000');
+            background-size: cover;
+            background-position: center;
+            box-shadow: var(--shadow);
+        }
+
+        /* Services Tab */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid #f0f0f0;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary-light);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* About Tab */
+        .about-section {
+            max-width: 800px;
+            margin: 4rem auto;
+            text-align: center;
+        }
+
+        .about-section h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .about-section p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* Testimonials */
+        .trust-icons {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .trust-item {
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .testimonial-card {
+            background: var(--accent);
+            padding: 3rem;
+            border-radius: 0 30px 0 30px;
+            position: relative;
+        }
+
+        .testimonial-card blockquote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Contact Tab */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+        
+        .contact-details { margin: 2rem 0; }
+        
+        .contact-details div {
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        input, select, textarea {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 0;
+            text-align: center;
+            background: var(--accent);
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero, .contact-container {
+                grid-template-columns: 1fr;
+                flex-direction: column;
+            }
+            .hero-text h1 { font-size: 3rem; }
+            .nav-tabs { display: none; } /* Mobile menu simplified for single-file demo */
+            .hero-visual { height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="container nav-content">
+        <div class="logo">E&G CLEANING</div>
+        <ul class="nav-tabs">
+            <li><a class="tab-link active" onclick="showTab('home', this)">Home</a></li>
+            <li><a class="tab-link" onclick="showTab('services', this)">Services</a></li>
+            <li><a class="tab-link" onclick="showTab('about', this)">About</a></li>
+            <li><a class="tab-link" onclick="showTab('testimonials', this)">Testimonials</a></li>
+            <li><a class="tab-link" onclick="showTab('contact', this)">Contact</a></li>
+        </ul>
+        <span class="espanol-badge">Hablamos Español</span>
+    </div>
+</nav>
+
+<!-- Home Tab -->
+<section id="home" class="tab-content active">
+    <div class="container hero">
+        <div class="hero-text">
+            <h1>Expert Cleaning for a Balanced Life</h1>
+            <p>Elevate your environment with our premium residential and commercial cleaning services. Trust, quality, and meticulous attention to detail in every corner.</p>
+            <a onclick="showTab('contact', document.querySelectorAll('.tab-link')[4])" class="btn btn-primary">Get a Free Quote</a>
+        </div>
+        <div class="hero-visual"></div>
+    </div>
+</section>
+
+<!-- Services Tab -->
+<section id="services" class="tab-content">
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <h2>Tailored Solutions</h2>
+            <p>Select the plan that fits your lifestyle or business needs.</p>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <h3>Basic Cleaning</h3>
+                <p>Perfect for maintaining a pristine home. Includes dusting, vacuuming, mopping, and sanitizing common areas.</p>
+            </div>
+            <div class="card">
+                <h3>Deep Cleaning</h3>
+                <p>A comprehensive reset. We scrub baseboards, behind appliances, and every hidden nook for a total refresh.</p>
+            </div>
+            <div class="card">
+                <h3>Commercial Care</h3>
+                <p>Professional janitorial services for offices and retail spaces. Keep your business looking sharp for clients.</p>
+            </div>
+            <div class="card">
+                <h3>Floors & Surfaces</h3>
+                <p>Specialized sweeping, mopping, and vacuuming using high-end equipment for all floor types.</p>
+            </div>
+            <div class="card">
+                <h3>Move In/Out</h3>
+                <p>Transition with ease. We ensure your new or old space is spotless and welcoming for the next chapter.</p>
+            </div>
+            <div class="card">
+                <h3>Recurring Plans</h3>
+                <p>Stay clean consistently. Flexible Weekly, Bi-Weekly, or Monthly schedules tailored to your routine.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Tab -->
+<section id="about" class="tab-content">
+    <div class="container">
+        <div class="about-section">
+            <h2>Our Story</h2>
+            <p>At E&G Cleaning, we believe a clean space is the foundation of mental clarity and professional success. With years of experience serving the community, we have built our reputation on the pillars of reliability, transparency, and superior quality.</p>
+            <p>We treat every home and office as if it were our own. Our team is fully trained and committed to using high-standard cleaning products that are safe yet effective. We don't just "clean"—we restore your space so you can focus on what truly matters to you.</p>
+            <p>Whether you need a one-time deep clean or a long-term commercial partnership, E&G Cleaning is dedicated to exceeding your expectations with every visit.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Tab -->
+<section id="testimonials" class="tab-content">
+    <div class="container">
+        <div class="trust-icons">
+            <div class="trust-item">✓ Experienced</div>
+            <div class="trust-item">✓ Reliable</div>
+            <div class="trust-item">✓ Top Quality</div>
+        </div>
+        <div class="grid">
+            <div class="testimonial-card">
+                <p>⭐⭐⭐⭐⭐</p>
+                <blockquote>"E&G Cleaning transformed my home. I work long hours and coming back to a spotless house has changed my life. Highly recommend!"</blockquote>
+                <cite>— Sarah M., Residential Client</cite>
+            </div>
+            <div class="testimonial-card">
+                <p>⭐⭐⭐⭐⭐</p>
+                <blockquote>"Professional, punctual, and extremely thorough. They handle our office cleaning and the staff has never been happier with the environment."</blockquote>
+                <cite>— James W., Business Owner</cite>
+            </div>
+            <div class="testimonial-card">
+                <p>⭐⭐⭐⭐⭐</p>
+                <blockquote>"The attention to detail is unmatched. They found spots I didn't even know needed cleaning. The best in the business!"</blockquote>
+                <cite>— Linda P., Deep Clean Client</cite>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Tab -->
+<section id="contact" class="tab-content">
+    <div class="container">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Ready for a Fresh Start?</h2>
+                <p>Contact us for a personalized estimate. We respond to all inquiries within 24 hours.</p>
+                <div class="contact-details">
+                    <div>📞 832-992-0301</div>
+                    <div>📞 832-978-0582</div>
+                    <div>✉️ egcleaningservices03@gmail.com</div>
+                </div>
+                <p><strong>Service Areas:</strong> Proudly serving residential and commercial clients in the local metropolitan area.</p>
+            </div>
+            <div class="contact-form-wrapper">
+                <form onsubmit="event.preventDefault(); alert('Quote Request Sent! We will contact you shortly.');">
+                    <input type="text" placeholder="Full Name" required>
+                    <input type="email" placeholder="Email Address" required>
+                    <input type="tel" placeholder="Phone Number" required>
+                    <select required>
+                        <option value="">Select Service Needed</option>
+                        <option value="basic">Basic Cleaning</option>
+                        <option value="deep">Deep Cleaning</option>
+                        <option value="commercial">Commercial Cleaning</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <textarea rows="5" placeholder="Tell us about your space (sq ft, specific needs...)" required></textarea>
+                    <button type="submit" class="btn btn-primary">Send Quote Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="logo" style="margin-bottom: 1rem;">E&G CLEANING</div>
+        <p>© 2026 E&G Cleaning Services. All Rights Reserved. | Hablamos Español</p>
+    </div>
+</footer>
+
+<script>
+    function showTab(tabId, element) {
+        // Hide all contents
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => {
+            content.classList.remove('active');
+        });
+
+        // Deactivate all tabs
+        const links = document.querySelectorAll('.tab-link');
+        links.forEach(link => {
+            link.classList.remove('active');
+        });
+
+        // Show selected content
+        document.getElementById(tabId).classList.add('active');
+
+        // Activate selected tab
+        element.classList.add('active');
+
+        // Scroll to top
+        window.scrollTo(0, 0);
+    }
+</script>
+
+</body>
+</html>
