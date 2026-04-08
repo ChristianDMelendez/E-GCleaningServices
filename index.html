@@ -1,659 +1,506 @@
-```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E&G Cleaning | Premium Professional Services</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>E&G Cleaning Services | Elite Home Care</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            /* High contrast color palette for readability and premium feel */
-            --primary: #1e4d2a; 
-            --primary-hover: #2a6b3b;
-            --accent: #f0f5f1;
-            --white: #ffffff;
-            --text-dark: #111111;
-            --text-body: #222222;
-            --border-color: #e5e5e5;
-            --shadow-soft: 0 12px 24px rgba(0, 0, 0, 0.04);
-            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.08);
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --bg-main: #050505;
+            --bg-surface: #0f0f0f;
+            --text-main: #f8fafc;
+            --emerald-brand: #059669; 
+            --gold-light: #fde047;
+            --gold-brand: #d4af37;
+            --gold-dark: #997a00;
+            --nav-bg: rgba(5, 5, 5, 0.85);
+            --border-subtle: rgba(255, 255, 255, 0.08);
         }
 
-        * {
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background-color: var(--bg-main); 
+            color: var(--text-main);
             margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 0%, rgba(20, 30, 25, 0.4) 0%, transparent 70%);
+        }
+        
+        .serif { font-family: 'Playfair Display', serif; }
+        .text-gold { color: var(--gold-brand); }
+        
+        /* Typography Enhancements */
+        h1, h2, h3 { letter-spacing: -0.02em; }
+        
+        /* Page Transitions */
+        .page-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px) scale(0.98);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .page-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            color: var(--text-body);
-            background-color: var(--white);
-            line-height: 1.6;
-            font-size: 16px; /* Ensuring mobile readability */
-            -webkit-font-smoothing: antialiased;
-            overflow-y: scroll; 
+        /* Luxury Gold Button */
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-brand) 50%, var(--gold-dark) 100%);
+            color: #000 !important;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .btn-gold::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+        .btn-gold:hover::before { left: 100%; }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -10px rgba(212, 175, 55, 0.4);
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-            color: var(--text-dark);
-            line-height: 1.2;
+        /* 3D Flip Cards - Refined */
+        .card-container { perspective: 1200px; height: 460px; }
+        .card-inner {
+            position: relative; width: 100%; height: 100%;
+            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transform-style: preserve-3d; cursor: pointer;
+        }
+        .card-container:hover .card-inner, .card-inner.flipped { transform: rotateY(180deg); }
+        .card-front, .card-back {
+            position: absolute; width: 100%; height: 100%;
+            backface-visibility: hidden; -webkit-backface-visibility: hidden;
+            border-radius: 2rem; display: flex; flex-direction: column;
+            justify-content: space-between; padding: 2.5rem;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+        }
+        .card-front {
+            background: linear-gradient(180deg, var(--bg-surface) 0%, #000 100%);
+            border: 1px solid var(--border-subtle);
+        }
+        .card-front::after { /* Subtle top glow */
+            content: ''; position: absolute; top: 0; left: 10%; width: 80%; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-brand), transparent);
+            opacity: 0.3;
+        }
+        .card-back {
+            background: linear-gradient(145deg, #022c22 0%, #000 100%);
+            transform: rotateY(180deg); 
+            border: 1px solid var(--gold-brand);
         }
 
-        a { text-decoration: none; }
-        button { cursor: pointer; font-family: inherit; }
-
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
+        /* Navigation & Menus */
+        .nav-link { 
+            position: relative; opacity: 0.6; transition: all 0.3s ease; 
         }
+        .nav-link::after {
+            content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%);
+            width: 0; height: 1px; background: var(--gold-brand); transition: width 0.3s ease;
+        }
+        .nav-link:hover { opacity: 1; }
+        .nav-link.active { opacity: 1; color: var(--gold-brand); }
+        .nav-link.active::after { width: 100%; }
 
-        /* --- Navigation --- */
-        .navbar {
-            position: sticky;
-            top: 0;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border-color);
+        #mobile-menu {
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(-100%);
+            background: rgba(5, 5, 5, 0.98);
+            backdrop-filter: blur(20px);
             z-index: 100;
-            padding: 16px 0;
         }
+        #mobile-menu.open { transform: translateY(0); }
 
-        .nav-wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary);
-            letter-spacing: -0.5px;
-        }
-
-        .nav-tabs {
-            display: flex;
-            gap: 8px;
-            list-style: none;
-        }
-
-        .tab-btn {
+        /* Custom Input Styling */
+        .input-line {
             background: transparent;
             border: none;
-            padding: 10px 16px;
-            font-size: 15px;
-            font-weight: 500;
-            color: var(--text-body);
-            border-radius: 6px;
-            transition: var(--transition);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1rem 0;
+            color: white;
+            transition: all 0.3s ease;
         }
-
-        .tab-btn:hover {
-            background: var(--accent);
-            color: var(--primary);
-        }
-
-        .tab-btn.active {
-            background: var(--primary);
-            color: var(--white);
-        }
-
-        .badge-es {
-            background: var(--accent);
-            color: var(--primary);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* --- Tab Content Areas --- */
-        .tab-content {
-            display: none;
-            padding: 64px 0 100px;
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- Reusable Components --- */
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--primary);
-            color: var(--white);
-            padding: 16px 32px;
-            font-size: 16px;
-            font-weight: 600;
-            border: none;
-            border-radius: 4px;
-            transition: var(--transition);
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(30, 77, 42, 0.2);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 48px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .section-header h2 {
-            font-size: 40px;
-            margin-bottom: 16px;
-        }
-
-        .section-header p {
-            font-size: 18px;
-            color: var(--text-body);
-        }
-
-        /* --- Home Tab --- */
-        .hero {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 48px;
-            align-items: center;
-            min-height: 600px;
-        }
-
-        .hero-text h1 {
-            font-size: 56px;
-            margin-bottom: 24px;
-        }
-
-        .hero-text p {
-            font-size: 20px;
-            margin-bottom: 40px;
-            max-width: 90%;
-        }
-
-        .hero-image {
-            width: 100%;
-            height: 600px;
-            border-radius: 12px;
-            object-fit: cover;
-            box-shadow: var(--shadow-soft);
-        }
-
-        /* --- Services Tab --- */
-        .grid-layout {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-            align-items: stretch; /* Fixed layouts constraint */
-        }
-
-        .card {
-            background: var(--white);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 32px;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            height: 100%; /* Prevents boxes from resizing awkwardly */
-        }
-
-        .card:hover {
-            border-color: var(--primary);
-            box-shadow: var(--shadow-hover);
-            transform: translateY(-4px);
-        }
-
-        .card h3 {
-            font-size: 24px;
-            margin-bottom: 12px;
-            color: var(--primary);
-        }
-
-        .card p {
-            font-size: 16px;
-            flex-grow: 1; /* Pushes content evenly */
-        }
-
-        /* --- About Tab --- */
-        .about-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 64px;
-            align-items: center;
-        }
-
-        .about-image {
-            width: 100%;
-            border-radius: 12px;
-            object-fit: cover;
-            height: 500px;
-        }
-
-        .about-text p {
-            font-size: 18px;
-            margin-bottom: 24px;
-        }
-
-        /* --- Testimonials Tab --- */
-        .trust-indicators {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 24px;
-            margin-bottom: 64px;
-        }
-
-        .trust-badge {
-            background: var(--accent);
-            padding: 16px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .review-card {
-            background: var(--white);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 40px;
-            text-align: center;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .review-card p {
-            font-family: 'Playfair Display', serif;
-            font-size: 20px;
-            font-style: italic;
-            margin-bottom: 24px;
-            flex-grow: 1;
-        }
-
-        .review-author {
-            font-weight: 600;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 14px;
-        }
-
-        /* --- Contact Tab --- */
-        .contact-layout {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 64px;
-            background: var(--white);
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            box-shadow: var(--shadow-soft);
-        }
-
-        .contact-info {
-            background: var(--primary);
-            color: var(--white);
-            padding: 48px;
-        }
-
-        .contact-info h2 {
-            color: var(--white);
-            margin-bottom: 24px;
-            font-size: 32px;
-        }
-
-        .info-block {
-            margin-bottom: 32px;
-        }
-
-        .info-block label {
-            display: block;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.8;
-            margin-bottom: 8px;
-        }
-
-        .info-block div {
-            font-size: 20px;
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-
-        .contact-form {
-            padding: 48px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-        }
-
-        .form-full {
-            grid-column: 1 / -1;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .input-group label {
-            font-weight: 500;
-            font-size: 14px;
-            color: var(--text-dark);
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid #cccccc;
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 16px;
-            background: var(--white);
-            transition: var(--transition);
-        }
-
-        input:focus, select:focus, textarea:focus {
+        .input-line:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(30, 77, 42, 0.1);
+            border-bottom-color: var(--gold-brand);
+            box-shadow: 0 10px 10px -10px rgba(212, 175, 55, 0.1);
         }
-
-        /* --- Responsive Design --- */
-        @media (max-width: 992px) {
-            .hero, .about-layout, .contact-layout {
-                grid-template-columns: 1fr;
-            }
-            .hero-image {
-                height: 400px;
-            }
-            .contact-form {
-                grid-template-columns: 1fr;
-            }
-            .hero-text h1 {
-                font-size: 40px;
-            }
+        
+        /* List Items */
+        .list-item { 
+            display: flex; align-items: flex-start; gap: 12px; 
+            font-size: 0.95rem; margin-bottom: 16px; color: #a1a1aa; 
         }
-
-        @media (max-width: 768px) {
-            .nav-wrapper {
-                flex-direction: column;
-            }
-            .nav-tabs {
-                width: 100%;
-                overflow-x: auto;
-                padding-bottom: 8px;
-                justify-content: flex-start;
-            }
-            .tab-btn {
-                white-space: nowrap;
-            }
-            .badge-es {
-                align-self: center;
-            }
-            .section-header h2 {
-                font-size: 32px;
-            }
-            .tab-content {
-                padding: 40px 0 80px;
-            }
+        .list-item i { color: var(--gold-brand); margin-top: 2px; width: 16px; }
+        
+        /* Image Glow Effect */
+        .img-glow {
+            position: relative;
+        }
+        .img-glow::before {
+            content: '';
+            position: absolute;
+            inset: -20px;
+            background: linear-gradient(45deg, var(--emerald-brand), var(--gold-brand));
+            filter: blur(60px);
+            opacity: 0.15;
+            z-index: -1;
+            border-radius: 50%;
         }
     </style>
 </head>
-<body>
+<body class="antialiased selection:bg-gold-brand selection:text-black">
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container nav-wrapper">
-            <div class="logo">E&G Cleaning</div>
-            <ul class="nav-tabs">
-                <li><button class="tab-btn active" data-target="home">Home</button></li>
-                <li><button class="tab-btn" data-target="services">Services</button></li>
-                <li><button class="tab-btn" data-target="about">About</button></li>
-                <li><button class="tab-btn" data-target="testimonials">Testimonials</button></li>
-                <li><button class="tab-btn" data-target="contact">Contact</button></li>
-            </ul>
-            <div class="badge-es">
-                ✓ Hablamos Español
+    <!-- Navbar -->
+    <nav class="fixed w-full z-[80] border-b border-white/5 px-6 py-4" style="background-color: var(--nav-bg); backdrop-filter: blur(15px);">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            
+            <!-- Logo -->
+            <div class="flex items-center gap-4 cursor-pointer group" onclick="showPage('home')">
+                <div class="w-12 h-12 bg-black rounded-full flex items-center justify-center border border-white/10 group-hover:border-gold-brand/50 transition-colors relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/40 to-transparent"></div>
+                    <span class="text-gold italic serif font-semibold text-xl relative z-10">E&G</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-extrabold tracking-tight uppercase leading-none text-white/90">E&G <span class="text-gold font-serif italic font-normal">Cleaning</span></span>
+                    <span class="text-[9px] tracking-[0.35em] text-emerald-400/80 uppercase font-semibold mt-1">The Gold Standard</span>
+                </div>
             </div>
+            
+            <!-- Desktop Links -->
+            <div class="hidden md:flex items-center gap-10 font-semibold text-xs uppercase tracking-[0.15em]">
+                <button onclick="showPage('home')" class="nav-link active" id="nav-home">Home</button>
+                <button onclick="showPage('services')" class="nav-link" id="nav-services">Services</button>
+                <button onclick="showPage('about')" class="nav-link" id="nav-about">About</button>
+                <button onclick="showPage('contact')" class="btn-gold px-8 py-3.5 rounded-full shadow-lg ml-2 font-bold tracking-[0.2em]">Book Now</button>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-gold hover:text-white transition-colors">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
         </div>
     </nav>
 
-    <!-- Home Tab -->
-    <main id="home" class="tab-content active">
-        <div class="container hero">
-            <div class="hero-text">
-                <h1>Top-Tier Cleaning Services You Can Trust.</h1>
-                <p>Experience the peace of mind that comes with a meticulously cleaned environment. We specialize in premium residential and commercial cleaning solutions.</p>
-                <button class="btn-primary" onclick="switchTab('contact')">Get a Free Quote</button>
-            </div>
-            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200" alt="Pristine living room interior" class="hero-image">
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 flex flex-col justify-center px-10 gap-8">
+        <button onclick="toggleMobileMenu()" class="absolute top-8 right-8 text-white/50 hover:text-gold transition-colors">
+            <i data-lucide="x" class="w-10 h-10"></i>
+        </button>
+        
+        <div class="flex flex-col gap-6 text-4xl font-light serif italic">
+            <button onclick="showPage('home'); toggleMobileMenu()" class="text-left text-white hover:text-gold transition-colors">Home.</button>
+            <button onclick="showPage('services'); toggleMobileMenu()" class="text-left text-white hover:text-gold transition-colors">Services.</button>
+            <button onclick="showPage('about'); toggleMobileMenu()" class="text-left text-white hover:text-gold transition-colors">Our Story.</button>
         </div>
-    </main>
+        
+        <div class="h-[1px] bg-white/10 w-full my-6"></div>
+        
+        <button onclick="showPage('contact'); toggleMobileMenu()" class="btn-gold px-8 py-4 rounded-full font-bold text-sm uppercase tracking-widest text-center w-max">
+            Request Consultation
+        </button>
 
-    <!-- Services Tab -->
-    <main id="services" class="tab-content">
-        <div class="container">
-            <div class="section-header">
-                <h2>Our Premium Services</h2>
-                <p>Tailored cleaning solutions designed to maintain the highest standards of hygiene and comfort in your home or business.</p>
-            </div>
-            <div class="grid-layout">
-                <div class="card">
-                    <h3>Basic Cleaning</h3>
-                    <p>Perfect for routine upkeep. We ensure your surfaces are wiped down, spaces are tidy, and your environment feels consistently fresh and welcoming.</p>
-                </div>
-                <div class="card">
-                    <h3>Deep Cleaning</h3>
-                    <p>A comprehensive reset for your space. We target hard-to-reach areas, baseboards, and hidden dust to restore your home to an immaculate state.</p>
-                </div>
-                <div class="card">
-                    <h3>Commercial Services</h3>
-                    <p>Professional janitorial care for offices and storefronts. We create a spotless, productive environment that leaves a great impression on your clients.</p>
-                </div>
-                <div class="card">
-                    <h3>Sweeping & Mopping</h3>
-                    <p>Detailed hard-floor care. We remove dirt, stains, and scuffs, leaving your tile, laminate, or hardwood floors gleaming and protected.</p>
-                </div>
-                <div class="card">
-                    <h3>Vacuuming & Dusting</h3>
-                    <p>Improve your indoor air quality. We meticulously vacuum carpets and dust all surfaces, fixtures, and vents to remove allergens.</p>
-                </div>
-                <div class="card">
-                    <h3>Recurring Schedules</h3>
-                    <p>Set it and forget it. We offer flexible Weekly, Bi-Weekly, and Monthly service schedules customized perfectly to your lifestyle.</p>
-                </div>
-            </div>
+        <div class="absolute bottom-10 left-10 flex items-center gap-3 opacity-40">
+            <i data-lucide="sparkles" class="w-5 h-5 text-gold"></i>
+            <p class="text-xs uppercase tracking-widest font-semibold">E&G Elite Care</p>
         </div>
-    </main>
+    </div>
 
-    <!-- About Tab -->
-    <main id="about" class="tab-content">
-        <div class="container about-layout">
-            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6954?auto=format&fit=crop&q=80&w=1200" alt="Professional cleaning supplies" class="about-image">
-            <div class="about-text">
-                <h2>The Standard of Excellence</h2>
-                <br>
-                <p>At E&G Cleaning, we understand that inviting a service team into your home or business requires absolute trust. That is why we have built our company on the foundational pillars of reliability, exceptional quality, and unwavering integrity. With extensive experience in both residential and commercial sectors, we don't just clean spaces—we elevate them.</p>
-                <p>Our dedicated, highly-trained professionals treat every property with the utmost respect. We utilize top-tier cleaning products and meticulous techniques to ensure every corner meets our rigorous standards. When you choose E&G Cleaning, you are choosing a partner committed to your satisfaction, your health, and the undeniable comfort of a perfectly pristine environment.</p>
-            </div>
-        </div>
-    </main>
-
-    <!-- Testimonials Tab -->
-    <main id="testimonials" class="tab-content">
-        <div class="container">
-            <div class="section-header">
-                <h2>What Our Clients Say</h2>
-                <p>Don't just take our word for it. Read about the experiences of our valued customers.</p>
-            </div>
-            
-            <div class="trust-indicators">
-                <div class="trust-badge">✦ Highly Experienced</div>
-                <div class="trust-badge">✦ 100% Reliable</div>
-                <div class="trust-badge">✦ Top Quality Service</div>
-            </div>
-
-            <div class="grid-layout">
-                <div class="review-card">
-                    <p>"E&G Cleaning completely transformed our office space. They are incredibly thorough, always on time, and their attention to detail is unmatched. Highly recommended for commercial needs."</p>
-                    <div class="review-author">David M. — Business Owner</div>
-                </div>
-                <div class="review-card">
-                    <p>"I scheduled a deep clean before hosting a major family event, and I was absolutely blown away. The house looked brand new. They found and cleaned places I didn't even know were dirty!"</p>
-                    <div class="review-author">Sarah L. — Homeowner</div>
-                </div>
-                <div class="review-card">
-                    <p>"Having them come bi-weekly has taken so much stress off my shoulders. They are trustworthy, kind, and their bilingual service made communicating exactly what I needed so easy."</p>
-                    <div class="review-author">Elena R. — Recurring Client</div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Contact Tab -->
-    <main id="contact" class="tab-content">
-        <div class="container">
-            <div class="section-header">
-                <h2>Request Your Free Quote</h2>
-                <p>Reach out today to discuss your cleaning needs. We respond promptly to all inquiries.</p>
-            </div>
-
-            <div class="contact-layout">
-                <div class="contact-info">
-                    <h2>E&G Cleaning</h2>
-                    <div class="info-block">
-                        <label>Direct Phone</label>
-                        <div>832-992-0301</div>
-                        <div>832-978-0582</div>
-                    </div>
-                    <div class="info-block">
-                        <label>Email Address</label>
-                        <div style="font-size: 18px;">egcleaningservices03@gmail.com</div>
-                    </div>
-                    <div class="info-block" style="margin-top: 64px;">
-                        <label>Bilingual Service</label>
-                        <div>Hablamos Español</div>
-                    </div>
-                </div>
-
-                <form class="contact-form" onsubmit="event.preventDefault(); alert('Thank you for contacting E&G Cleaning. Your request has been sent successfully!'); this.reset();">
-                    <div class="input-group form-full">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" required placeholder="John Doe">
+    <!-- Main Content Wrapper -->
+    <div class="pt-32 pb-20 min-h-screen flex flex-col justify-center">
+        
+        <!-- HOME PAGE -->
+        <main id="home" class="page-content active">
+            <section class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center min-h-[70vh]">
+                <div class="space-y-8 z-10 relative">
+                    <!-- Badge -->
+                    <div class="inline-flex items-center gap-3 px-5 py-2.5 bg-white/5 border border-white/10 rounded-full backdrop-blur-sm">
+                        <span class="relative flex h-2.5 w-2.5">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                        </span>
+                        <span class="text-[10px] text-white/80 font-semibold uppercase tracking-[0.2em]">Premium Care for Modern Estates</span>
                     </div>
                     
-                    <div class="input-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" required placeholder="(832) 000-0000">
+                    <!-- Headline -->
+                    <h1 class="text-6xl md:text-7xl lg:text-8xl font-medium leading-[1.05] tracking-tight">
+                        Luxury is a <br>
+                        <span class="serif italic text-gold">pristine</span> home.
+                    </h1>
+                    
+                    <p class="text-lg md:text-xl text-zinc-400 leading-relaxed max-w-lg font-light">
+                        E&G Cleaning Services provides the premier choice for high-end residential detailing and exquisite space management.
+                    </p>
+                    
+                    <div class="pt-4 flex items-center gap-6">
+                        <button onclick="showPage('contact')" class="btn-gold px-10 py-4 rounded-full font-bold text-sm uppercase tracking-widest">
+                            Start Your Quote
+                        </button>
+                        <button onclick="showPage('services')" class="text-xs font-semibold uppercase tracking-widest text-white/60 hover:text-white transition-colors flex items-center gap-2">
+                            View Services <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Hero Image -->
+                <div class="relative img-glow mt-10 lg:mt-0">
+                    <div class="absolute inset-0 border border-white/10 rounded-[2.5rem] transform translate-x-4 translate-y-4 pointer-events-none"></div>
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200" 
+                         alt="Luxury clean living room" 
+                         class="rounded-[2.5rem] w-full object-cover aspect-[4/5] lg:aspect-[3/4] shadow-2xl relative z-10 opacity-90 hover:opacity-100 transition-opacity duration-500">
+                </div>
+            </section>
+        </main>
+
+        <!-- SERVICES PAGE -->
+        <main id="services" class="page-content">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-20">
+                    <p class="text-emerald-500 font-semibold text-xs uppercase tracking-[0.3em] mb-4">Our Expertise</p>
+                    <h2 class="text-5xl md:text-6xl font-light serif italic">The E&G Standard</h2>
+                </div>
+                
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- Standard Card -->
+                    <div class="card-container" onclick="this.querySelector('.card-inner').classList.toggle('flipped')">
+                        <div class="card-inner">
+                            <div class="card-front group">
+                                <div class="text-left">
+                                    <div class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center mb-6 group-hover:bg-gold-brand/10 transition-colors">
+                                        <i data-lucide="sparkles" class="text-gold w-6 h-6"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-semibold mb-3 tracking-tight">The Routine</h3>
+                                    <p class="text-sm text-zinc-400 font-light leading-relaxed">Meticulous weekly maintenance designed for the high-end lifestyle.</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-widest text-zinc-500 mb-1">Starting at</p>
+                                    <p class="text-4xl font-serif italic text-gold">$150</p>
+                                </div>
+                            </div>
+                            <div class="card-back text-left">
+                                <div>
+                                    <h4 class="text-gold font-semibold uppercase tracking-widest text-xs mb-6 flex items-center gap-2">
+                                        <i data-lucide="check-circle" class="w-4 h-4"></i> What's Included
+                                    </h4>
+                                    <div class="list-item"><i data-lucide="check" class="w-4 h-4"></i> Fine Dusting & Polishing</div>
+                                    <div class="list-item"><i data-lucide="check" class="w-4 h-4"></i> Hardwood & Marble Care</div>
+                                    <div class="list-item"><i data-lucide="check" class="w-4 h-4"></i> Culinary Space Detail</div>
+                                    <div class="list-item"><i data-lucide="check" class="w-4 h-4"></i> Luxury Linen Turn-down</div>
+                                </div>
+                                <button onclick="event.stopPropagation(); showPage('contact')" class="w-full py-3 bg-white/10 hover:bg-gold-brand hover:text-black transition-colors rounded-xl text-xs font-bold uppercase tracking-widest mt-4">Select</button>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="input-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" required placeholder="john@example.com">
+                    <!-- Signature Card -->
+                    <div class="card-container transform lg:-translate-y-4" onclick="this.querySelector('.card-inner').classList.toggle('flipped')">
+                        <div class="card-inner">
+                            <div class="card-front border-gold-brand/50 bg-gradient-to-b from-zinc-900 to-black group">
+                                <div class="absolute top-0 right-0 bg-gold-brand text-black text-[9px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-bl-xl rounded-tr-[2rem]">Most Popular</div>
+                                <div class="text-left">
+                                    <div class="w-12 h-12 bg-gold-brand/10 rounded-full flex items-center justify-center mb-6">
+                                        <i data-lucide="gem" class="text-gold w-6 h-6"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-semibold mb-3 tracking-tight text-white">The Restoration</h3>
+                                    <p class="text-sm text-emerald-200/60 font-light leading-relaxed">A molecular-level deep clean that resets your home's baseline.</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-widest text-zinc-500 mb-1">Starting at</p>
+                                    <p class="text-4xl font-serif italic text-gold">$300</p>
+                                </div>
+                            </div>
+                            <div class="card-back text-left">
+                                <div>
+                                    <h4 class="text-gold font-semibold uppercase tracking-widest text-xs mb-6 flex items-center gap-2">
+                                        <i data-lucide="check-circle" class="w-4 h-4"></i> Deep Clean List
+                                    </h4>
+                                    <div class="list-item"><i data-lucide="check" class="w-4 h-4"></i> Baseboard & Trim Restoration</div>
+                                    <div class="list-item"><i data-lucide="check" class="w-4 h-4"></i> Appliance Interior Scouring</div>
+                                    <div class="list-item"><i data-lucide="check" class="w-4 h-4"></i> HVAC Vent Purification</div>
+                                    <div class="list-item"><i data-lucide="check" class="w-4 h-4"></i> Deep Cabinet Sanitization</div>
+                                </div>
+                                <button onclick="event.stopPropagation(); showPage('contact')" class="w-full py-3 bg-gold-brand text-black hover:bg-gold-light transition-colors rounded-xl text-xs font-bold uppercase tracking-widest mt-4">Select</button>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="input-group form-full">
-                        <label for="service">Service Needed</label>
-                        <select id="service" required>
-                            <option value="" disabled selected>Select a service...</option>
-                            <option value="residential-basic">Residential - Basic Cleaning</option>
-                            <option value="residential-deep">Residential - Deep Cleaning</option>
-                            <option value="commercial">Commercial Cleaning</option>
-                            <option value="move-in-out">Move In / Move Out</option>
-                            <option value="other">Other Inquiry</option>
-                        </select>
+                    <!-- Move Card -->
+                    <div class="card-container" onclick="this.querySelector('.card-inner').classList.toggle('flipped')">
+                        <div class="card-inner">
+                            <div class="card-front group">
+                                <div class="text-left">
+                                    <div class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center mb-6 group-hover:bg-gold-brand/10 transition-colors">
+                                        <i data-lucide="key" class="text-gold w-6 h-6"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-semibold mb-3 tracking-tight">The Transition</h3>
+                                    <p class="text-sm text-zinc-400 font-light leading-relaxed">Seamless move-in/move-out detailing for absolute perfection.</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-widest text-zinc-500 mb-1">Custom Pricing</p>
+                                    <p class="text-3xl font-serif italic text-gold mt-2">By Quote</p>
+                                </div>
+                            </div>
+                            <div class="card-back text-left">
+                                <div>
+                                    <h4 class="text-gold font-semibold uppercase tracking-widest text-xs mb-6 flex items-center gap-2">
+                                        <i data-lucide="check-circle" class="w-4 h-4"></i> Transition Details
+                                    </h4>
+                                    <div class="list-item"><i data-lucide="check" class="w-4 h-4"></i> Sanitized for Immediate Entry</div>
+                                    <div class="list-item"><i data-lucide="check" class="w-4 h-4"></i> Closet & Drawer Detailing</div>
+                                    <div class="list-item"><i data-lucide="check" class="w-4 h-4"></i> Garage & Patio Sweep</div>
+                                    <div class="list-item"><i data-lucide="check" class="w-4 h-4"></i> Wall & Fixture Spot-Clean</div>
+                                </div>
+                                <button onclick="event.stopPropagation(); showPage('contact')" class="w-full py-3 bg-white/10 hover:bg-gold-brand hover:text-black transition-colors rounded-xl text-xs font-bold uppercase tracking-widest mt-4">Select</button>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="input-group form-full">
-                        <label for="message">Message / Details</label>
-                        <textarea id="message" rows="5" required placeholder="Please describe your space and specific cleaning needs..."></textarea>
-                    </div>
-
-                    <div class="form-full" style="margin-top: 16px;">
-                        <button type="submit" class="btn-primary" style="width: 100%;">Submit Request</button>
-                    </div>
-                </form>
+                </div>
             </div>
+        </main>
+
+        <!-- ABOUT PAGE -->
+        <main id="about" class="page-content">
+            <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row gap-16 md:gap-24 items-center min-h-[60vh]">
+                <div class="w-full md:w-1/2 relative img-glow">
+                    <img src="https://images.unsplash.com/photo-1556740758-90de374c12ad?auto=format&fit=crop&q=80&w=1000" 
+                         alt="Elegant bathroom detail"
+                         class="rounded-[2.5rem] object-cover aspect-square md:aspect-[4/5] shadow-2xl relative z-10 border border-white/5 opacity-90 grayscale-[20%]">
+                    <!-- Floating stat -->
+                    <div class="absolute -bottom-6 -right-6 bg-black border border-gold-brand/30 p-6 rounded-3xl z-20 shadow-2xl backdrop-blur-md">
+                        <p class="text-4xl font-serif text-gold italic">10+</p>
+                        <p class="text-[10px] font-bold uppercase tracking-widest text-white/70 mt-1">Years of Excellence</p>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 space-y-8">
+                    <p class="text-emerald-500 font-semibold text-xs uppercase tracking-[0.3em]">Our Story</p>
+                    <h2 class="text-5xl md:text-6xl font-light serif italic leading-tight">More than just <br>a clean.</h2>
+                    
+                    <div class="pl-6 border-l-2 border-gold-brand/50 py-2">
+                        <p class="text-xl text-white/90 font-light italic serif leading-relaxed">
+                            "We believe a home is a sanctuary that deserves profound respect."
+                        </p>
+                    </div>
+                    
+                    <p class="text-zinc-400 font-light leading-relaxed text-lg">
+                        As a boutique, family-owned firm, our reputation isn't built on volume—it's built on trust, discretion, and a relentless obsession with detail. We train our staff not just to clean surfaces, but to curate environments where you can truly breathe, relax, and thrive.
+                    </p>
+                    
+                    <div class="pt-6">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Signature_placeholder.svg/1200px-Signature_placeholder.svg.png" alt="Founder Signature" class="h-12 invert opacity-50">
+                        <p class="text-xs uppercase tracking-widest text-zinc-500 mt-3 font-semibold">Founders, E&G Cleaning</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- CONTACT PAGE -->
+        <main id="contact" class="page-content">
+            <div class="max-w-4xl mx-auto px-6">
+                <div class="bg-surface relative rounded-[2.5rem] p-8 md:p-16 border border-white/5 shadow-2xl overflow-hidden">
+                    <!-- Background decor -->
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-gold-brand/5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+                    
+                    <div class="text-center mb-12 relative z-10">
+                        <p class="text-emerald-500 font-semibold text-xs uppercase tracking-[0.3em] mb-4">Inquiries</p>
+                        <h2 class="text-4xl md:text-5xl font-light serif italic mb-4">Start Your Transformation</h2>
+                        <p class="text-zinc-400 font-light text-sm max-w-md mx-auto">Leave your details below and our concierge team will reach out to schedule your personalized assessment.</p>
+                    </div>
+                    
+                    <form action="#" method="POST" class="space-y-8 relative z-10" onsubmit="event.preventDefault(); alert('Inquiry received. We will contact you shortly.');">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="relative">
+                                <input type="text" id="name" required placeholder=" " class="input-line w-full peer">
+                                <label for="name" class="absolute left-0 top-4 text-zinc-500 text-sm transition-all peer-focus:-top-2 peer-focus:text-xs peer-focus:text-gold-brand peer-valid:-top-2 peer-valid:text-xs uppercase tracking-widest">Full Name</label>
+                            </div>
+                            <div class="relative">
+                                <input type="email" id="email" required placeholder=" " class="input-line w-full peer">
+                                <label for="email" class="absolute left-0 top-4 text-zinc-500 text-sm transition-all peer-focus:-top-2 peer-focus:text-xs peer-focus:text-gold-brand peer-valid:-top-2 peer-valid:text-xs uppercase tracking-widest">Email Address</label>
+                            </div>
+                        </div>
+                        
+                        <div class="relative">
+                            <select name="service" required class="input-line w-full appearance-none cursor-pointer">
+                                <option value="" disabled selected class="bg-zinc-900 text-zinc-500">Select a Service...</option>
+                                <option value="routine" class="bg-zinc-900">The Routine (Weekly/Bi-weekly)</option>
+                                <option value="restoration" class="bg-zinc-900">The Restoration (Deep Clean)</option>
+                                <option value="move" class="bg-zinc-900">The Transition (Move In/Out)</option>
+                            </select>
+                            <i data-lucide="chevron-down" class="absolute right-0 top-4 w-5 h-5 text-zinc-500 pointer-events-none"></i>
+                        </div>
+
+                        <div class="pt-6">
+                            <button type="submit" class="btn-gold w-full py-5 rounded-full font-bold text-sm uppercase tracking-[0.2em] shadow-2xl flex items-center justify-center gap-3">
+                                Send Request <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-12 text-center border-t border-white/5 space-y-6 relative z-10 bg-black/50">
+        <div class="flex justify-center gap-6 mb-6">
+            <a href="#" class="text-zinc-600 hover:text-gold-brand transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+            <a href="#" class="text-zinc-600 hover:text-gold-brand transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+            <a href="#" class="text-zinc-600 hover:text-gold-brand transition-colors"><i data-lucide="mail" class="w-5 h-5"></i></a>
         </div>
-    </main>
+        <p class="text-[10px] font-bold tracking-[0.4em] uppercase text-zinc-600">© 2026 E&G CLEANING SERVICES</p>
+        <p class="text-[9px] font-medium tracking-[0.2em] uppercase text-zinc-700 cursor-default">
+            Experience Crafted by <span class="text-gold/70 hover:text-gold transition-colors">JustCallMeSilent</span>
+        </p>
+    </footer>
 
     <script>
-        // Tab switching logic
-        function switchTab(targetId) {
-            // Hide all tab contents
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => {
-                content.classList.remove('active');
-            });
+        // Initialize Lucide Icons
+        lucide.createIcons();
 
-            // Remove active class from all buttons
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(button => {
-                button.classList.remove('active');
+        // Page Navigation Logic
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(p => {
+                p.classList.remove('active');
             });
-
-            // Show target content
-            const targetContent = document.getElementById(targetId);
-            if(targetContent) {
-                targetContent.classList.add('active');
+            
+            // Remove active state from nav links
+            document.querySelectorAll('.nav-link').forEach(l => {
+                l.classList.remove('active');
+            });
+            
+            // Show target page
+            const targetPage = document.getElementById(pageId);
+            if(targetPage) {
+                // Slight delay to allow display:block to apply before opacity fades in
+                setTimeout(() => targetPage.classList.add('active'), 10);
             }
-
-            // Highlight target button
-            const targetButton = document.querySelector(`.tab-btn[data-target="${targetId}"]`);
-            if(targetButton) {
-                targetButton.classList.add('active');
-            }
-
-            // Scroll to top of page smoothly
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            
+            // Highlight active nav link
+            const navItem = document.getElementById('nav-' + pageId);
+            if(navItem) navItem.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Attach event listeners to all tab buttons
-        document.querySelectorAll('.tab-btn').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const target = e.target.getAttribute('data-target');
-                switchTab(target);
-            });
-        });
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('open');
+            document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+        }
     </script>
 </body>
 </html>
-
-```
